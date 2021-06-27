@@ -3,6 +3,7 @@ package fileutil
 import (
 	"bufio"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"time"
@@ -139,4 +140,12 @@ func ReadFileWithBufferSize(filename string, maxCapacity int) (chan string, erro
 		out <- scanner.Text()
 	}
 	return out, nil
+}
+
+func ReadFileContent(filePath string) (string, error) {
+	f, err := ioutil.ReadFile(filePath)
+	if err != nil {
+		return "", err
+	}
+	return string(f), nil
 }
