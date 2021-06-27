@@ -142,10 +142,26 @@ func ReadFileWithBufferSize(filename string, maxCapacity int) (chan string, erro
 	return out, nil
 }
 
+//读取文件内容
 func ReadFileContent(filePath string) (string, error) {
 	f, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return "", err
 	}
 	return string(f), nil
+}
+
+//将文本内容写入到指定文件中
+func WriteContentToFile(content []byte, filepath string, flag int) error {
+	f, err := os.OpenFile(filepath, flag, 0666)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	_, err = f.Write(content)
+	if err != nil {
+		return err
+	}
+	return nil
 }
