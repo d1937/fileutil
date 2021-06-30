@@ -145,12 +145,12 @@ func ReadFileWithBufferSize(filename string, maxCapacity int) (chan string, erro
 }
 
 //读取文件内容
-func ReadFileContent(filePath string) (string, error) {
+func ReadFileContent(filePath string) ([]byte, error) {
 	f, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return "", err
+		return []byte(""), err
 	}
-	return string(f), nil
+	return f, nil
 }
 
 //将文本内容写入到指定文件中
