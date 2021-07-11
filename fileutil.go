@@ -191,3 +191,22 @@ func WalkDir(dirPth, suffix string) (files []string, err error) {
 
 	return files, err
 }
+
+//copy file
+func Copy(source, dest string) (bool, error) {
+	fd1, err := os.Open(source)
+	if err != nil {
+		return false, err
+	}
+	defer fd1.Close()
+	fd2, err := os.OpenFile(dest, os.O_WRONLY|os.O_CREATE, 0644)
+	if err != nil {
+		return false, err
+	}
+	defer fd2.Close()
+	_, e := io.Copy(fd2, fd1)
+	if e != nil {
+		return false, e
+	}
+	return true, nil
+}
