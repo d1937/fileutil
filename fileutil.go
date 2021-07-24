@@ -113,7 +113,7 @@ func HasStdin() bool {
 }
 
 func ReadFile(filename string) (chan string, error) {
-	out := make(chan string)
+	out := make(chan string, 1)
 	defer close(out)
 	f, err := os.Open(filename)
 	if err != nil {
